@@ -1,10 +1,10 @@
 import requests
+import operator
 from bs4 import BeautifulSoup
 
 congresspeople_urls = []
 url_dict = {}
 contributor_totals = {}
-
 
 
 def get_congresspeople(url):
@@ -17,8 +17,6 @@ def get_congresspeople(url):
     for letter in all_letters:
         congresspeople = letter.find_all("a")
         for congressperson in congresspeople:
-
-
             url_dict[congressperson.text.strip()] = "https://opensecrets.org" + congressperson.get('href')
 
             congresspeople_urls.append("https://opensecrets.org" + congressperson.get('href'))
@@ -65,8 +63,6 @@ def get_contributors(url):
     return curr_contributors_list
 
 
-
-
 def get_totals(url):
     # Total up all contributions for every contributor by searching top contributor lists of every congressperson.
     get_congresspeople(url)
@@ -86,9 +82,20 @@ def get_totals(url):
         print(contributor_totals)
 
 
+def sort_dict(d, reverse):
+    # Sorts and returns a dictionary in forward or reverse order of value.
+    if not reverse:
+        sorted_d = sorted(d.items(), key=operator.itemgetter(1))
+    else:
+        sorted_d = sorted(d.items(), key=operator.itemgetter(1), reverse=True)
+    return sorted_d
+
+
 def main():
     full_list = "https://www.opensecrets.org/members-of-congress/members-list?cong_no=117&cycle=2020"
     get_totals(full_list)
+
+    sort_dict(contributor_totals, False)
 
 
 if __name__ == '__main__':
