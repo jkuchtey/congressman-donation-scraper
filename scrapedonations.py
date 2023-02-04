@@ -83,7 +83,7 @@ def get_totals(url):
 
 
 def sort_dict(d, reverse):
-    # Sorts and returns a dictionary in forward or reverse order of value.
+    # Sorts and returns a dictionary in forward or reverse order of values.
     if not reverse:
         sorted_d = sorted(d.items(), key=operator.itemgetter(1))
     else:
