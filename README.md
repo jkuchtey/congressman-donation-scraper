@@ -12,5 +12,11 @@ Functions:
     dictionary of every top donator over a congressman's career and the amount they donated. 
     
   get_totals:
-    using the get_congresspeople, this function scrapes every congressperson's top donators and creates
+    Using the get_congresspeople, this function scrapes every congressperson's top donators and creates
     a dictionary of all donators and their total donations. 
+
+  sort_dict:
+    Sorts a given dictionary in descending or nondescending order. 
+    
+   write_csv:
+    Writes a given dictionary to a csv file. The function also takes in a string for the filename. 
