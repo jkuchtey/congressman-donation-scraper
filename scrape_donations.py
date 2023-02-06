@@ -1,6 +1,7 @@
 import requests
 import operator
 from bs4 import BeautifulSoup
+import csv
 
 congresspeople_urls = []
 url_dict = {}
@@ -91,12 +92,22 @@ def sort_dict(d, reverse):
     return sorted_d
 
 
+def write_csv(d, filename):
+    # Writes a dictionary to a .csv file using a dictionary and a filename (automatically appends .csv extension)
+    filename = filename + '.csv'
+    with open(filename, 'w') as f:  # You will need 'wb' mode in Python 2.x
+        w = csv.DictWriter(f, d.keys())
+        w.writeheader()
+        w.writerow(d)
+
+
 def main():
     full_list = "https://www.opensecrets.org/members-of-congress/members-list?cong_no=117&cycle=2020"
     get_totals(full_list)
 
     sort_dict(contributor_totals, False)
-
+    temp = {'test': 1, 'testing': 2}
+    write_csv(temp, 'new_csv')
 
 if __name__ == '__main__':
     main()
